@@ -154,3 +154,30 @@ class Barrier:
     def draw(self, surf):
         if self.health > 0:
             pygame.draw.rect(surf, (0, 255, 0), self.rect)
+
+# ==========================================
+# PLAYER CLASS
+# ==========================================
+class Player:
+    WIDTH = 100
+    HEIGHT = 100
+    def _init_(self, x, y):
+        img = load_image("defender.png")
+        if img:
+            self.img = pygame.transform.scale(img, (self.WIDTH, self.HEIGHT))
+        else:
+            self.img = None
+
+        self.x = x
+        self.y = y
+        self.speed = 6
+        self.rect = pygame.Rect(x, y, self.WIDTH, self.HEIGHT)
+
+    def update(self):
+        self.rect.topleft = (self.x, self.y)
+
+    def draw(self, surf):
+        if self.img:
+            surf.blit(self.img, (self.x, self.y))
+        else:
+            pygame.draw.rect(surf, GREEN, self.rect)
