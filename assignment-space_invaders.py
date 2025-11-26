@@ -207,4 +207,24 @@ class Invader:
             surf.blit(self.img, (self.x, self.y))
         else:
             pygame.draw.rect(surf, (180, 80, 200), self.rect)
-  
+
+# ==========================================
+# BULLET CLASS
+# ==========================================
+class Bullet:
+    def _init_(self, x, y, vy, color=(0,255,0)):
+        self.x = x
+        self.y = y
+        self.vy = vy
+        self.color = color
+        self.w = 6
+        self.h = 12
+        self.rect = pygame.Rect(x, y, self.w, self.h)
+        self.alive = True
+
+    def update(self):
+        self.y += self.vy
+        self.rect.topleft = (self.x, self.y)
+
+    def draw(self, surf):
+        pygame.draw.rect(surf, self.color, self.rect)
