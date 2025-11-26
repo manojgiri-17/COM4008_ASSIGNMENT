@@ -228,3 +228,41 @@ class Bullet:
 
     def draw(self, surf):
         pygame.draw.rect(surf, self.color, self.rect)
+
+# ==========================================
+# EXPLOSION
+# ==========================================
+class Explosion:
+    def _init_(self, x, y):
+        self.x = x
+        self.y = y
+        self.timer = 0
+        self.frames = explosion_frames
+
+        if self.frames:
+            self.frame_count = len(self.frames)
+            self.duration = self.frame_count * 2
+        else:
+            self.frame_count = 20
+            self.duration = 20
+
+        self.alive = True
+
+    def update(self):
+        self.timer += 1
+        if self.timer >= self.duration:
+            self.alive = False
+
+    def draw(self, surf):
+        if self.frames:
+            idx = min(self.frame_count - 1, self.timer // 2)
+            frame = self.frames[idx]
+            surf.blit(frame, frame.get_rect(center=(self.x, self.y)))
+        else:
+            t = self.timer / self.duration
+            radius = int(5 + 40 * t)
+            alpha = max(0, 255 - int(255 * t))
+            tmp = pygame.Surface((radius*2+4, radius*2+4), pygame.SRCALPHA)
+            pygame.draw.circle(tmp, (255,170,0,alpha),
+                               (radius+2,radius+2), radius)
+            surf.blit(tmp, (self.x-radius-2, self.y-radius-2))
