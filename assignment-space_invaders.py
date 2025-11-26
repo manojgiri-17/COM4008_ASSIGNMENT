@@ -445,3 +445,14 @@ while running:
                 save_highscore(highscore)
             break
     
+    # ---------------------------
+    # ENEMY SHOOTING
+    # ---------------------------
+    now = pygame.time.get_ticks()
+    if now - last_enemy_shot > enemy_shoot_rate and invaders and not game_over:
+        shooter = random.choice(invaders)
+        ex = shooter.x + shooter.rect.width//2 - 3
+        ey = shooter.y + shooter.rect.height
+        enemy_bullets.append(Bullet(ex, ey, 6, RED))
+        last_enemy_shot = now
+    
