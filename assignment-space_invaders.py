@@ -456,3 +456,37 @@ while running:
         enemy_bullets.append(Bullet(ex, ey, 6, RED))
         last_enemy_shot = now
     
+    # ---------------------------
+    # PLAYER BULLETS
+    # ---------------------------
+    for b in player_bullets[:]:
+        b.update()
+        if b.y < -50 or not b.alive:
+            player_bullets.remove(b)
+            continue
+
+        # Barrier hit
+        for bar in barriers:
+            if bar.health > 0 and b.rect.colliderect(bar.rect):
+                bar.hit()
+                b.alive = False
+                player_bullets.remove(b)
+                break
+        if not b.alive:
+            continue
+
+        # Invader hit
+        for inv in invaders[:]:
+            if b.rect.colliderect(inv.rect):
+                score += inv.score
+                explosions.append(Explosion(inv.rect.centerx, inv.rect.centery))
+
+                if explode_sound:
+                    try: explode_sound.play()
+                    except: pass
+
+                invaders.remove(inv)
+                b.alive = False
+                player_bullets.remove(b)
+                break
+    
