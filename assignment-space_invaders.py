@@ -573,3 +573,29 @@ while running:
 
     draw_hearts(screen, lives, WIDTH - 160, 8)
     
+    # ==========================================
+    # GAME OVER SCREEN + IMAGE
+    # ==========================================
+    if game_over:
+        overlay = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
+        overlay.fill((0,0,0,180))
+        screen.blit(overlay, (0,0))
+
+        if game_over_img:
+            rect = game_over_img.get_rect(center=(WIDTH//2, HEIGHT//2 - 100))
+            screen.blit(game_over_img, rect)
+        else:
+            go_surf = big_font.render("GAME OVER", True, (255,80,80))
+            screen.blit(go_surf, (WIDTH//2 - go_surf.get_width()//2, HEIGHT//2 - 80))
+
+        screen.blit(font.render(f"Score: {score}", True, WHITE),
+                    (WIDTH//2 - 50, HEIGHT//2))
+        screen.blit(font.render(f"Best: {highscore}", True, WHITE),
+                    (WIDTH//2 - 45, HEIGHT//2 + 30))
+        screen.blit(font.render("Press R to Restart", True, WHITE),
+                    (WIDTH//2 - 110, HEIGHT//2 + 80))
+
+    pygame.display.flip()
+
+pygame.quit()
+sys.exit()
