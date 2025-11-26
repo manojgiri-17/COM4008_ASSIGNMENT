@@ -317,3 +317,28 @@ last_enemy_shot = pygame.time.get_ticks()
 
 player_shot_cooldown = 250
 last_player_shot = 0
+
+# ==========================================
+# MUSIC
+# ==========================================
+if music_loaded:
+    try:
+        pygame.mixer.music.play(-1)
+    except:
+        pass
+
+# ==========================================
+# HEART DRAW
+# ==========================================
+def draw_hearts(surf, lives_count, x, y):
+    if heart_img:
+        w = heart_img.get_width()
+        for i in range(lives_count):
+            surf.blit(heart_img, (x + i*(w+10), y))
+    else:
+        for i in range(lives_count):
+            pygame.draw.circle(surf, RED, (x+20*i+6, y+10), 6)
+            pygame.draw.circle(surf, RED, (x+20*i+18, y+10), 6)
+            pygame.draw.polygon(surf, RED,
+                [(x+20*i, y+10), (x+20*i+24, y+10), (x+20*i+12, y+26)]
+            )
