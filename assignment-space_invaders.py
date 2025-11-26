@@ -266,3 +266,25 @@ class Explosion:
             pygame.draw.circle(tmp, (255,170,0,alpha),
                                (radius+2,radius+2), radius)
             surf.blit(tmp, (self.x-radius-2, self.y-radius-2))
+
+# ==========================================
+# INVADER SETUP
+# ==========================================
+rows_setup = [
+    (inv1_img, 30),
+    (inv2_img, 20),
+    (inv3_img, 10),
+    (inv3_img, 10),
+]
+
+invaders = []
+
+def spawn_invaders(cols=10, start_x=40, start_y=80, sx=48, sy=48):
+    invaders.clear()
+    for r, (img, pts) in enumerate(rows_setup):
+        y = start_y + r * sy
+        for c in range(cols):
+            x = start_x + c * sx
+            invaders.append(Invader(x, y, img, pts))
+
+spawn_invaders()
