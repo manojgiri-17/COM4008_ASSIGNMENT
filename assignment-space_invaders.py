@@ -545,3 +545,31 @@ while running:
         for inv in invaders:
             inv.y += 10
     
+    # ---------------------------
+    # DRAW EVERYTHING
+    # ---------------------------
+    for inv in invaders:
+        inv.update()
+        inv.draw(screen)
+
+    player.draw(screen)
+
+    for bar in barriers:
+        bar.draw(screen)
+
+    for b in player_bullets:
+        b.draw(screen)
+
+    for b in enemy_bullets:
+        b.draw(screen)
+
+    for ex in explosions:
+        ex.draw(screen)
+
+    # HUD
+    screen.blit(font.render(f"Score: {score}", True, WHITE), (18,18))
+    screen.blit(font.render(f"Level: {level}", True, WHITE), (WIDTH//2 - 40, 18))
+    screen.blit(font.render(f"High: {highscore}", True, WHITE), (WIDTH - 140, 18))
+
+    draw_hearts(screen, lives, WIDTH - 160, 8)
+    
