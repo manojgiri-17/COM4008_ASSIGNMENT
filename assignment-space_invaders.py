@@ -342,3 +342,51 @@ def draw_hearts(surf, lives_count, x, y):
             pygame.draw.polygon(surf, RED,
                 [(x+20*i, y+10), (x+20*i+24, y+10), (x+20*i+12, y+26)]
             )
+
+# ==========================================
+# MAIN LOOP
+# ==========================================
+running = True
+game_over = False
+
+while running:
+    dt = clock.tick(FPS)
+
+    # Background
+    if background_img:
+        screen.blit(background_img, (0, 0))
+    else:
+        screen.fill(BG_COLOR)
+
+    # Stars
+    for star in stars:
+        star.update()
+        star.draw(screen)
+
+    # ---------------------------
+    # EVENTS
+    # ---------------------------
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN:
+            if game_over and event.key == pygame.K_r:
+                score = 0
+                lives = 3
+                level = 1
+                enemy_speed = 0.5
+                enemy_shoot_rate = 2000
+                spawn_invaders()
+                player.x = WIDTH//2 - Player.WIDTH//2
+                player_bullets.clear()
+                enemy_bullets.clear()
+                explosions.clear()
+                barriers = [
+                    Barrier(60, HEIGHT - 200),
+                    Barrier(180, HEIGHT - 200),
+                    Barrier(300, HEIGHT - 200),
+                    Barrier(420, HEIGHT - 200),
+                ]
+                game_over = False
+    
