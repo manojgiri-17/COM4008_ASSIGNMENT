@@ -288,3 +288,32 @@ def spawn_invaders(cols=10, start_x=40, start_y=80, sx=48, sy=48):
             invaders.append(Invader(x, y, img, pts))
 
 spawn_invaders()
+
+# ==========================================
+# GAME STATE
+# ==========================================
+player = Player(WIDTH//2 - Player.WIDTH//2, HEIGHT - 90)
+player_bullets = []
+enemy_bullets = []
+explosions = []
+
+barriers = [
+    Barrier(60, HEIGHT - 200),
+    Barrier(180, HEIGHT - 200),
+    Barrier(300, HEIGHT - 200),
+    Barrier(420, HEIGHT - 200),
+]
+
+score = 0
+lives = 3
+level = 1
+highscore = load_highscore()
+
+move_right = True
+enemy_speed = 0.5
+enemy_drop_speed = 18
+enemy_shoot_rate = 2000
+last_enemy_shot = pygame.time.get_ticks()
+
+player_shot_cooldown = 250
+last_player_shot = 0
