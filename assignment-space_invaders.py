@@ -526,4 +526,22 @@ while running:
                     highscore = score
                     save_highscore(highscore)
             break
+    # ---------------------------
+    # EXPLOSIONS
+    # ---------------------------
+    for ex in explosions[:]:
+        ex.update()
+        if not ex.alive:
+            explosions.remove(ex)
+
+    # ---------------------------
+    # LEVEL UP
+    # ---------------------------
+    if not invaders and not game_over:
+        level += 1
+        enemy_speed += 0.15 + level * 0.02
+        enemy_shoot_rate = max(400, int(enemy_shoot_rate * 0.92))
+        spawn_invaders()
+        for inv in invaders:
+            inv.y += 10
     
