@@ -181,3 +181,30 @@ class Player:
             surf.blit(self.img, (self.x, self.y))
         else:
             pygame.draw.rect(surf, GREEN, self.rect)
+
+# ==========================================
+# INVADER CLASS
+# ==========================================
+class Invader:
+    WIDTH = 40
+    HEIGHT = 30
+    def _init_(self, x, y, image, score):
+        if image:
+            self.img = pygame.transform.scale(image, (self.WIDTH, self.HEIGHT))
+        else:
+            self.img = None
+
+        self.x = x
+        self.y = y
+        self.score = score
+        self.rect = pygame.Rect(x, y, self.WIDTH, self.HEIGHT)
+
+    def update(self):
+        self.rect.topleft = (self.x, self.y)
+
+    def draw(self, surf):
+        if self.img:
+            surf.blit(self.img, (self.x, self.y))
+        else:
+            pygame.draw.rect(surf, (180, 80, 200), self.rect)
+  
