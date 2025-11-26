@@ -418,3 +418,30 @@ while running:
         player.x = max(0, min(player.x, WIDTH - player.rect.width))
         player.update()
     
+    # ---------------------------
+    # ENEMY MOVEMENT
+    # ---------------------------
+    move_down = False
+    for inv in invaders:
+        test_x = inv.x + (enemy_speed if move_right else -enemy_speed)
+        if test_x <= 8 or test_x + inv.rect.width >= WIDTH - 8:
+            move_down = True
+            break
+
+    for inv in invaders:
+        inv.x += enemy_speed if move_right else -enemy_speed
+
+    if move_down:
+        move_right = not move_right
+        for inv in invaders:
+            inv.y += enemy_drop_speed
+
+    # Invader reaches player
+    for inv in invaders:
+        if inv.y + inv.rect.height >= player.y:
+            game_over = True
+            if score > highscore:
+                highscore = score
+                save_highscore(highscore)
+            break
+    
