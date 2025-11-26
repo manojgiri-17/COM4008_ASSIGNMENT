@@ -390,3 +390,31 @@ while running:
                 ]
                 game_over = False
     
+    # ---------------------------
+    # PLAYER CONTROL
+    # ---------------------------
+    keys = pygame.key.get_pressed()
+
+    if not game_over:
+        if keys[pygame.K_LEFT]:
+            player.x -= player.speed
+        if keys[pygame.K_RIGHT]:
+            player.x += player.speed
+
+        if keys[pygame.K_SPACE]:
+            now = pygame.time.get_ticks()
+            if now - last_player_shot >= player_shot_cooldown and len(player_bullets) < 5:
+                bx = player.x + player.rect.width//2 - 3
+                by = player.y
+                player_bullets.append(Bullet(bx, by, -10, GREEN))
+
+                explosions.append(Explosion(bx + 3, by + 10))
+                last_player_shot = now
+
+                if shoot_sound:
+                    try: shoot_sound.play()
+                    except: pass
+
+        player.x = max(0, min(player.x, WIDTH - player.rect.width))
+        player.update()
+    
