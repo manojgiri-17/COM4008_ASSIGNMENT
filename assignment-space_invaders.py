@@ -129,4 +129,28 @@ stars = []
 num_stars = 100
 for _ in range(num_stars):
     stars.append(Star(random.randint(0, WIDTH), random.randint(0, HEIGHT)))
-    
+
+# ==========================================
+# BARRIER CLASS
+# ==========================================
+class Barrier:
+    def _init_(self, x, y, width=80, height=40, health=15):
+        self.x = x
+        self.y = y
+        self.w = width
+        self.h = height
+        self.health = health
+        self.max_health = health
+        self.rect = pygame.Rect(x, y, width, height)
+
+    def hit(self, damage=1):
+        self.health -= damage
+        if self.health < 0:
+            self.health = 0
+        percent = self.health / self.max_health
+        self.h = max(0, int(40 * percent))
+        self.rect = pygame.Rect(self.x, self.y + (40 - self.h), self.w, self.h)
+
+    def draw(self, surf):
+        if self.health > 0:
+            pygame.draw.rect(surf, (0, 255, 0), self.rect)
