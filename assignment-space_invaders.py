@@ -490,3 +490,40 @@ while running:
                 player_bullets.remove(b)
                 break
     
+    # ---------------------------
+    # ENEMY BULLETS
+    # ---------------------------
+    for b in enemy_bullets[:]:
+        b.update()
+        if b.y > HEIGHT + 50:
+            enemy_bullets.remove(b)
+            continue
+
+        # Barrier hit
+        for bar in barriers:
+            if bar.health > 0 and b.rect.colliderect(bar.rect):
+                bar.hit()
+                enemy_bullets.remove(b)
+                break
+
+        # Player hit
+        if b in enemy_bullets and b.rect.colliderect(player.rect):
+            explosions.append(Explosion(player.rect.centerx, player.rect.centery))
+
+            if explode_sound:
+                try: explode_sound.play()
+                except: pass
+
+            enemy_bullets.clear()
+            player_bullets.clear()
+
+            lives -= 1
+            player.x = WIDTH//2 - Player.WIDTH//2
+
+            if lives <= 0:
+                game_over = True
+                if score > highscore:
+                    highscore = score
+                    save_highscore(highscore)
+            break
+    
