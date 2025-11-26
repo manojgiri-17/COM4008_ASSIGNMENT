@@ -88,3 +88,45 @@ for i in range(EXPLOSION_FRAME_COUNT):
 inv1_img = load_image("invader1.png")
 inv2_img = load_image("invader2.png")
 inv3_img = load_image("invader3.png")
+
+# ==========================================
+# FONTS & COLORS
+# ==========================================
+font = pygame.font.SysFont("Arial", 26)
+big_font = pygame.font.SysFont("Arial", 44)
+
+WHITE = (255, 255, 255)
+RED = (220, 40, 40)
+GREEN = (0, 200, 0)
+BG_COLOR = (6, 6, 12)
+
+# ==========================================
+# STAR CLASS FOR BLINKING STARS
+# ==========================================
+class Star:
+    def _init_(self, x, y):
+        self.x = x
+        self.y = y
+        self.blink_timer = random.randint(0, 120)
+        self.blink_interval = random.randint(60, 180)
+        self.visible = True
+
+    def update(self):
+        self.blink_timer += 1
+        if self.blink_timer >= self.blink_interval:
+            self.visible = not self.visible
+            self.blink_timer = 0
+            self.blink_interval = random.randint(60, 180)
+
+    def draw(self, surf):
+        if self.visible:
+            pygame.draw.circle(surf, WHITE, (self.x, self.y), 1)
+
+# ==========================================
+# CREATE STARS
+# ==========================================
+stars = []
+num_stars = 100
+for _ in range(num_stars):
+    stars.append(Star(random.randint(0, WIDTH), random.randint(0, HEIGHT)))
+    
