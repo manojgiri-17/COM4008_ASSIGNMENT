@@ -104,7 +104,7 @@ BG_COLOR = (6, 6, 12)
 # STAR CLASS FOR BLINKING STARS
 # ==========================================
 class Star:
-    def _init_(self, x, y):
+    def __init__(self, x, y):
         self.x = x
         self.y = y
         self.blink_timer = random.randint(0, 120)
@@ -134,7 +134,7 @@ for _ in range(num_stars):
 # BARRIER CLASS
 # ==========================================
 class Barrier:
-    def _init_(self, x, y, width=80, height=40, health=15):
+    def __init__(self, x, y, width=80, height=40, health=15):
         self.x = x
         self.y = y
         self.w = width
@@ -161,7 +161,7 @@ class Barrier:
 class Player:
     WIDTH = 100
     HEIGHT = 100
-    def _init_(self, x, y):
+    def __init__(self, x, y):
         img = load_image("defender.png")
         if img:
             self.img = pygame.transform.scale(img, (self.WIDTH, self.HEIGHT))
@@ -188,7 +188,7 @@ class Player:
 class Invader:
     WIDTH = 40
     HEIGHT = 30
-    def _init_(self, x, y, image, score):
+    def __init__(self, x, y, image, score):
         if image:
             self.img = pygame.transform.scale(image, (self.WIDTH, self.HEIGHT))
         else:
@@ -212,7 +212,7 @@ class Invader:
 # BULLET CLASS
 # ==========================================
 class Bullet:
-    def _init_(self, x, y, vy, color=(0,255,0)):
+    def __init__(self, x, y, vy, color=(0,255,0)):
         self.x = x
         self.y = y
         self.vy = vy
@@ -233,7 +233,7 @@ class Bullet:
 # EXPLOSION
 # ==========================================
 class Explosion:
-    def _init_(self, x, y):
+    def __init__(self, x, y):
         self.x = x
         self.y = y
         self.timer = 0
