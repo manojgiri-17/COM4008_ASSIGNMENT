@@ -3,7 +3,7 @@ import pygame, sys, os, random
 pygame.init()
 WIDTH, HEIGHT = 600, 700
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Space Invaders")
+pygame.display.set_caption("Requirement-2")
 clock = pygame.time.Clock()
 FPS = 60
 
@@ -17,6 +17,8 @@ def load_image(filename):
     if os.path.exists(filename):
         return pygame.image.load(filename).convert_alpha()
     return None
+
+life_icon = pygame.transform.scale(load_image("defender.png"), (20,20))
 
 # ---------------- DEFENDER CLASS -----------------
 class Defender:
@@ -122,7 +124,11 @@ while running:
     
     for b in player_bullets:
         b.draw(screen) 
-    
+      
+    # Draw player lives
+    for i in range(player.lives):
+        screen.blit(life_icon, (10 + i*25, HEIGHT - 25))
+
     pygame.display.update()
 
 pygame.quit()
